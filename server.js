@@ -1,24 +1,28 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const port = 3000
-const app = express()
+const express = require("express");
+const mongoose = require("mongoose");
+const multer = require("multer");
+const app = express();
+const dotenv = require("dotenv");
+const studentRoute = require("./routes/student.route");
+dotenv.config();
+const port = process.env.PORT;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(multer().any());
 
-app.use((req,res,next)=>{
-    console.log(req.path, req.method)
-    next()
-})
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
-// Define routes here
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then((e) => console.log("mongoDB connected"))
+  .catch((e) => console.log(e));
 
-mongoose.connect("mongodb+srv://sainath47:16oct1996@saicluster2.kzyf6n0.mongodb.net/rannlab").then(
-  (e)=>  console.log("mongoDB connected")
-).catch(e=> console.log(e))
+app.use("/student", studentRoute);
 
-
-app.listen(port ,()=>{
-console.log(`app listening at ${port}`);
-})
+app.listen(port, () => {
+  console.log(`app listening at ${port}`);
+});
