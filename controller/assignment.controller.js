@@ -13,9 +13,8 @@ cloudinary.config({
 async function createAssignment(req, res) {
     try {
       const data = req.body;
-      data.students =  data.students.split(',')
   
-      if (!data.title || !data.description  || !data.filetype  || !data.students || !Array.isArray(data.students) || data.students.length === 0) {
+      if (!data.title || !data.description  || !data.filetype || !data.filepath  || !data.students || !Array.isArray(data.students) || data.students.length === 0) {
         return res.status(400).json({ message: "Please provide all required fields" });
       }
   
@@ -26,14 +25,13 @@ async function createAssignment(req, res) {
         return res.status(400).json({ message: "Invalid student ids" });
       }
 
+console.log(data.filepath);
 
-let files = req.files, filepath
-if (files && files.length > 0) {
-  //  filepath = await cloudinary.uploader.upload(files[0])
+  const filepath = await cloudinary.uploader.upload(data.filepath)
 
-}
+// console.log(filepath,"filepath");
 
-console.log(filepath, "filepath");
+
 
       // Create assignment object
       const newAssignment = {

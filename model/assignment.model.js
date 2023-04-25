@@ -5,6 +5,7 @@ const assignmentSchema = new mongoose.Schema({
   description: String,
   dueDate: Date,
   filetype: { type: String, enum: ['PDF', 'Word', 'PPT', 'Image'] },
+  filepath: String,
   students: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
     default: []
