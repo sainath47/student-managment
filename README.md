@@ -22,7 +22,7 @@ so iam gonna list the apis & the payload you should be using , though from proje
         "photoPath": "D:/wall/GOKU/blue.jpg"
        
     }
-     ```
+ ```
      
      
   ## Login POST(http://localhost:port/student/login)
