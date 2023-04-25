@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 dotenv.config();
 
-
+const {cloudinary} = require('./assignment.controller.js');
 
 const isvalidRequestBody = function (requestbody) {
   return Object.keys(requestbody).length > 0;
@@ -31,7 +31,7 @@ async function register(req, res) {
         email,
         mobile,
         password,
-        photo,
+        photoPath,
       } = data;
 
       // Check if required fields are present
@@ -51,7 +51,7 @@ async function register(req, res) {
       // Regular expression for validating a mobile number
       const mobileNumberPattern = /^[6-9]\d{9}$/;
       if (mobileNumberPattern.test(mobile)) {
-        console.log("Valid mobile number");
+        // console.log("Valid mobile number");
       } else {
         return res
           .status(400)
@@ -62,7 +62,7 @@ async function register(req, res) {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       if (emailPattern.test(email)) {
-        console.log("Valid email address");
+        // console.log("Valid email address");
       } else {
         return res
           .status(400)
@@ -108,6 +108,7 @@ async function register(req, res) {
 
       // Hash the password before saving to the database
       const hashedPassword = await bcrypt.hash(password, 10);
+      const photo = await cloudinary.uploader.upload(photoPath)
       const newStudent = {
         firstName,
         lastName,
@@ -115,7 +116,7 @@ async function register(req, res) {
         email,
         mobile,
         password: hashedPassword,
-        photo,
+        photo:photo.url,
       };
 
       const savedStudent = await studentModel.create(newStudent);

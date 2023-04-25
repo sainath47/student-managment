@@ -59,4 +59,4 @@ console.log(data.filepath);
   }
   //so now iam able to use the feature of updating students & assignment , now i have to put path by ;uploding the file
 
-  module.exports = {createAssignment}
+  module.exports = {createAssignment, cloudinary}
