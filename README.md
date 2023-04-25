@@ -48,8 +48,8 @@ so iam gonna list the apis & the payload you should be using , though from proje
 ```
 
 ## CreateAssignment POST(http://localhost:port/assignment/)
-    - payload:-
-```yaml
+  - payload:-
+ ```yaml
 {
 
         "title": "String",
