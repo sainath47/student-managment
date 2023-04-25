@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const studentRoute = require("./routes/student.route");
 dotenv.config();
 const port = process.env.PORT;
-
+const assignmentRoute = require('./routes/assignment.route');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(multer().any());
@@ -22,6 +22,7 @@ mongoose
   .catch((e) => console.log(e));
 
 app.use("/student", studentRoute);
+app.use("/assignment", assignmentRoute);
 
 app.listen(port, () => {
   console.log(`app listening at ${port}`);

@@ -31,6 +31,11 @@ const studentSchema = new mongoose.Schema({
     type: String ,// Assuming you'll store the URL/path of the photo
     default : "#"
   }
+  ,
+  assignments: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Assignment' }],
+    default: []
+  }
 });
 
 module.exports = mongoose.model('Student', studentSchema);
